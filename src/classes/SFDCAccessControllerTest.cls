@@ -37,7 +37,7 @@
  */
 @isTest
 private class SFDCAccessControllerTest { 
-    public static SFDCAccessController Access_Controller = new SFDCAccessController();
+    static SFDCAccessController Access_Controller = new SFDCAccessController();
         
     static testMethod void testAccessControl() {
         Contact c = new Contact();
