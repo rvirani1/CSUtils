@@ -37,7 +37,8 @@
  */
 @isTest
 private class SFDCAccessControllerTest { 
-
+    public static SFDCAccessController Access_Controller = new SFDCAccessController();
+        
     static testMethod void testAccessControl() {
         Contact c = new Contact();
         
@@ -47,13 +48,13 @@ private class SFDCAccessControllerTest {
         };
         
         // cannot change lastmodified date
-        System.assertEquals(false, Util.AccessController.isAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate));
-        System.assertEquals(false, Util.AccessController.isAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
-        System.assertEquals(false, Util.AccessController.isAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate));
-        System.assertEquals(false, Util.AccessController.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
+        System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate));
+        System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
+        System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate));
+        System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'}));
 
         try{
-            Util.AccessController.assertAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate);
+            Access_Controller.assertAuthorizedToUpdate(Schema.Contact.SobjectType, contactLastModifiedDate);
             System.assert(false, 'Should not succeed in saving as Lastmodified date is not updateable');
         } catch(SFDCAccessControlException ex) {
             System.assert(!String.isBlank(ex.getText()));
@@ -64,7 +65,7 @@ private class SFDCAccessControllerTest {
         }
         
         try{
-            Util.AccessController.assertAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate);
+            Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, contactLastModifiedDate);
             System.assert(false, 'Should not succeed in saving as Lastmodified date is not creatable');
         } catch(SFDCAccessControlException ex) {
             System.assert(!String.isBlank(ex.getText()));
@@ -76,7 +77,7 @@ private class SFDCAccessControllerTest {
         
         
         try{
-            Util.AccessController.assertAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'});
+            Access_Controller.assertAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'});
             System.assert(false, 'Should not succeed in saving as Lastmodified date is not updateable');
         } catch(SFDCAccessControlException ex) {
             System.assert(!String.isBlank(ex.getText()));
@@ -87,7 +88,7 @@ private class SFDCAccessControllerTest {
         }
         
         try{
-            Util.AccessController.assertAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'});
+            Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastModifiedDate'});
             System.assert(false, 'Should not succeed in saving as Lastmodified date is not creatable');
         } catch(SFDCAccessControlException ex) {
             System.assert(!String.isBlank(ex.getText()));
@@ -99,7 +100,7 @@ private class SFDCAccessControllerTest {
         
         
         try{
-            Util.AccessController.assertAuthorizedToCreate(Schema.ApexLog.SobjectType, 
+            Access_Controller.assertAuthorizedToCreate(Schema.ApexLog.SobjectType, 
                                 new List<Schema.SObjectField>{Schema.ApexLog.fields.Status});
             System.assert(false, 'Should not succeed in saving as ApexLog  is not creatable');
         } catch(SFDCAccessControlException ex) {
@@ -111,7 +112,7 @@ private class SFDCAccessControllerTest {
         }
         
         try{
-            Util.AccessController.assertAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
+            Access_Controller.assertAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
                                 new List<Schema.SObjectField>{Schema.ApexLog.fields.Status});
             System.assert(false, 'Should not succeed in saving as ApexLog  is not updateable');
         } catch(SFDCAccessControlException ex) {
@@ -123,7 +124,7 @@ private class SFDCAccessControllerTest {
         }
         
         try{
-            Util.AccessController.assertAuthorizedToCreate(Schema.ApexLog.SobjectType, 
+            Access_Controller.assertAuthorizedToCreate(Schema.ApexLog.SobjectType, 
                                 new List<String>{'Status'});
             System.assert(false, 'Should not succeed in saving as ApexLog  is not creatable');
         } catch(SFDCAccessControlException ex) {
@@ -135,7 +136,7 @@ private class SFDCAccessControllerTest {
         }
         
         try{
-            Util.AccessController.assertAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
+            Access_Controller.assertAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
                                 new List<String>{'Status'});
             System.assert(false, 'Should not succeed in saving as ApexLog  is not updateable');
         } catch(SFDCAccessControlException ex) {
@@ -146,46 +147,46 @@ private class SFDCAccessControllerTest {
             System.assertEquals(null, ex.getExceptionField());
         }
         
-        System.assertEquals(false,Util.AccessController.isAuthorizedToCreate(Schema.ApexLog.SobjectType, 
+        System.assertEquals(false,Access_Controller.isAuthorizedToCreate(Schema.ApexLog.SobjectType, 
                                 new List<Schema.SObjectField>{Schema.ApexLog.fields.Status}));
                                 
-        System.assertEquals(false, Util.AccessController.isAuthorizedToCreate(Schema.ApexLog.SobjectType, 
+        System.assertEquals(false, Access_Controller.isAuthorizedToCreate(Schema.ApexLog.SobjectType, 
                                 new List<String>{'Status'}));
         
-        System.assertEquals(false,Util.AccessController.isAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
+        System.assertEquals(false,Access_Controller.isAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
                                 new List<Schema.SObjectField>{Schema.ApexLog.fields.Status}));
                                 
-        System.assertEquals(false, Util.AccessController.isAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
+        System.assertEquals(false, Access_Controller.isAuthorizedToUpdate(Schema.ApexLog.SobjectType, 
                                 new List<String>{'Status'}));
         
         
         System.assertEquals(Contact.SobjectType.getDescribe().isDeletable(), 
-                    Util.AccessController.isAuthorizedToDelete(Schema.Contact.SobjectType));
+                    Access_Controller.isAuthorizedToDelete(Schema.Contact.SobjectType));
         
-        List<Schema.SobjectField> createableFields = Util.AccessController.getCreatableFields(c);
-        List<Schema.SobjectField> updateableFields = Util.AccessController.getUpdateableFields(c);
-        List<Schema.SobjectField> viewableFields = Util.AccessController.getViewableFields(c);
+        List<Schema.SobjectField> createableFields = Access_Controller.getCreatableFields(c);
+        List<Schema.SobjectField> updateableFields = Access_Controller.getUpdateableFields(c);
+        List<Schema.SobjectField> viewableFields = Access_Controller.getViewableFields(c);
         
-        System.assertEquals(createableFields, Util.AccessController.getCreatableFields(Contact.getSObjectType()));
-        System.assertEquals(updateableFields, Util.AccessController.getUpdateableFields(Contact.getSObjectType()));
-        System.assertEquals(viewableFields,Util.AccessController.getViewableFields(Contact.getSObjectType()));
+        System.assertEquals(createableFields, Access_Controller.getCreatableFields(Contact.getSObjectType()));
+        System.assertEquals(updateableFields, Access_Controller.getUpdateableFields(Contact.getSObjectType()));
+        System.assertEquals(viewableFields,Access_Controller.getViewableFields(Contact.getSObjectType()));
         
         // will throw exception if in bad state
-        Util.AccessController.assertAuthorizedToView(Schema.Contact.SobjectType, viewableFields);
-        Util.AccessController.assertAuthorizedToCreate(Schema.Contact.SobjectType, createableFields);
-        Util.AccessController.assertAuthorizedToUpdate(Schema.Contact.SobjectType, updateableFields);
+        Access_Controller.assertAuthorizedToView(Schema.Contact.SobjectType, viewableFields);
+        Access_Controller.assertAuthorizedToCreate(Schema.Contact.SobjectType, createableFields);
+        Access_Controller.assertAuthorizedToUpdate(Schema.Contact.SobjectType, updateableFields);
         
-        System.assert(Util.AccessController.isAuthorizedToView(Schema.Contact.SobjectType, viewableFields), 'should be able to view');
-        System.assert(Util.AccessController.isAuthorizedToCreate(Schema.Contact.SobjectType, createableFields), 'should be able to view');
-        System.assert(Util.AccessController.isAuthorizedToUpdate(Schema.Contact.SobjectType, updateableFields), 'should be able to update');
+        System.assert(Access_Controller.isAuthorizedToView(Schema.Contact.SobjectType, viewableFields), 'should be able to view');
+        System.assert(Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, createableFields), 'should be able to view');
+        System.assert(Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, updateableFields), 'should be able to update');
         
-        System.assert(Util.AccessController.isAuthorizedToView(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to view');
-        System.assert(Util.AccessController.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to create');
-        System.assert(Util.AccessController.isAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to update');
+        System.assert(Access_Controller.isAuthorizedToView(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to view');
+        System.assert(Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to create');
+        System.assert(Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, new List<String>{'LastName'}), 'should be able to update');
         
         String badFieldName = 'SomeCrazyBadFieldName';
         try {
-            System.assert(Util.AccessController.isAuthorizedToView(Schema.Contact.SobjectType, 
+            System.assert(Access_Controller.isAuthorizedToView(Schema.Contact.SobjectType, 
                                 new List<String>{'LastName', badFieldName}), 'should be able to view');
             System.assert(false, 'Should not come here');
         } catch(SFDCAccessControlException ex) {
@@ -197,7 +198,7 @@ private class SFDCAccessControllerTest {
         }
 
         try {
-            System.assert(Util.AccessController.isAuthorizedToCreate(Schema.Contact.SobjectType, 
+            System.assert(Access_Controller.isAuthorizedToCreate(Schema.Contact.SobjectType, 
                                 new List<String>{'LastName', badFieldName}), 'should be able to view');
             System.assert(false, 'Should not come here');
         } catch(SFDCAccessControlException ex) {
@@ -209,7 +210,7 @@ private class SFDCAccessControllerTest {
         }
         
         try {
-            System.assert(Util.AccessController.isAuthorizedToUpdate(Schema.Contact.SobjectType, 
+            System.assert(Access_Controller.isAuthorizedToUpdate(Schema.Contact.SobjectType, 
                                 new List<String>{'LastName', badFieldName}), 'should be able to view');
             System.assert(false, 'Should not come here');
         } catch(SFDCAccessControlException ex) {
