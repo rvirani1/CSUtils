@@ -2,68 +2,354 @@
 <!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
 <!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on https://github.com/jonrohan -->
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
-
-  <title>Csutils</title>
-  <meta name="description" content="An Apex utility class for the force.com platform">
-
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/script.js"></script>
+    <title>Csutils</title>
+    <meta name="description" content="An Apex utility class for the force.com platform">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 
 <body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Csutils</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">An Apex utility class for the force.com platform</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/CodeScience/CSUtils/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/CodeScience/CSUtils/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/CodeScience/CSUtils" class="code">View Csutils on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h1>
+    <div class="wrapper">
+        <header>
+            <h1 class="title">Csutils</h1>
+        </header>
+        <div id="container">
+            <p class="tagline">An Apex utility class for the force.com platform</p>
+            <div id="main" role="main">
+                <div class="download-bar">
+                    <div class="inner">
+                        <a href="https://github.com/CodeScience/CSUtils/tarball/master" class="download-button tar"><span>Download</span></a>
+                        <a href="https://github.com/CodeScience/CSUtils/zipball/master" class="download-button zip"><span>Download</span></a>
+                        <a href="https://github.com/CodeScience/CSUtils" class="code">View Csutils on GitHub</a>
+                    </div>
+                    <span class="blc"></span><span class="trc"></span>
+                </div>
+                <article class="markdown-body">
+                    <h1>
 <a id="csutils" class="anchor" href="#csutils" aria-hidden="true"><span class="octicon octicon-link"></span></a>CSUtils</h1>
+                    <p>
+                        <a href="https://githubsfdeploy.herokuapp.com?owner=CodeScience&amp;repo=CSUtils">
+                            <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
+                        </a>
+                    </p>
+                    <p>An Apex utility class for the force.com platform</p>
+                </article>
 
-<p><a href="https://githubsfdeploy.herokuapp.com?owner=CodeScience&amp;repo=CSUtils">
-  <img alt="Deploy to Salesforce" src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/src/main/webapp/resources/img/deploy.png">
-</a></p>
+<h2>Static Methods</h2>
 
-<p>An Apex utility class for the force.com platform</p>
-        </article>
-      </div>
+<article class="markdown-body">
+    <h3>isNumeric(String value) returns Boolean</h3>
+    <h4>Determine if a String object has a numeric value.</h4>
+    <pre>
+System.assertEquals(false, CSUtils.isNumeric(null));
+System.assertEquals(false, CSUtils.isNumeric(''));
+System.assertEquals(true, CSUtils.isNumeric('1'));
+System.assertEquals(true, CSUtils.isNumeric('1.0'));
+System.assertEquals(true, CSUtils.isNumeric('01'));
+System.assertEquals(true, CSUtils.isNumeric('.01'));
+System.assertEquals(false, CSUtils.isNumeric('text'));
+</pre>
+
+<article class="markdown-body">
+    <h3>isValidId(String value) returns Boolean</h3>
+    <h4>Determine if a String is a valid Salesforce Id.</h4>
+    <pre>
+System.assertEquals(true, CSUtils.isValidId(null));
+System.assertEquals(false, CSUtils.isValidId('1234'));
+System.assertEquals(false, CSUtils.isValidId('1234567890123456'));
+
+Contact contact = new Contact();
+contact.LastName = 'Test';
+insert contact;
+
+System.assertEquals(true, CSUtils.isValidId(contact.Id));
+</pre>
+
+<article class="markdown-body">
+    <h3>isValidEmail(String email)  returns Boolean</h3>
+    <h4>Determine if a String is a valid email address.</h4>
+    <pre>
+System.assertEquals(true, CSUtils.isValidEmail(null));
+System.assertEquals(true, CSUtils.isValidEmail('test@test.com'));
+System.assertEquals(false, CSUtils.isValidEmail('test'));
+System.assertEquals(false, CSUtils.isValidEmail('test@test'));
+System.assertEquals(false, CSUtils.isValidEmail('@test'));
+System.assertEquals(false, CSUtils.isValidEmail('@test.com'));
+</pre>
+
+
+<article class="markdown-body">
+    <h3>leftPad(String value, String pad, Integer length) returns String</h3>
+    <h4>Left pad a String to the given length with the given pad character.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.leftPad(null, null, null));
+System.assertEquals('1234', CSUtils.leftPad('1234', '0', 4));
+System.assertEquals('0555', CSUtils.leftPad('555', '0', 4));
+System.assertEquals('12345', CSUtils.leftPad('12345', '0', 4));
+</pre>
+
+<article class="markdown-body">
+    <h3>rightPad(String value, String pad, Integer length) returns  String</h3>
+    <h4>Right pad a String to the given length with the given pad character.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.rightPad(null, null, null));
+System.assertEquals('1234', CSUtils.rightPad('1234', '0', 4));
+System.assertEquals('5550', CSUtils.rightPad('555', '0', 4));
+System.assertEquals('12345', CSUtils.rightPad('12345', '0', 4));
+</pre>
+
+<article class="markdown-body">
+    <h3>toCharacterArray(String value) returns  String[]</h3>
+    <h4>Convert a String to an array (List) of characters (1-letter Strings).</h4>
+    <pre>
+List<String> characters = CSUtils.toCharacterArray('abc');
+System.assertEquals('a', characters.get(0));
+System.assertEquals('b', characters.get(1));
+System.assertEquals('c', characters.get(2));
+</pre>
+
+<article class="markdown-body">
+    <h3>nullSafeEquals returns Boolean</h3>
+    <h4>Perform a null-safe equals comparison on two strings.</h4>
+    <pre>
+System.assertEquals(true, CSUtils.nullSafeEquals(null, null));
+System.assertEquals(false, CSUtils.nullSafeEquals(null, 'val'));
+System.assertEquals(false, CSUtils.nullSafeEquals('val', null));
+System.assertEquals(true, CSUtils.nullSafeEquals('val', 'val'));
+System.assertEquals(false, CSUtils.nullSafeEquals('vala', 'valb'));
+</pre>
+
+<article class="markdown-body">
+    <h3>join(sObject[] objects, String fieldName, String separator) returns String</h3>
+    <h4>Join a list of field values from a list of SObjects into one string separated by the specified separator.</h4>
+    <pre>
+// Set version.
+System.assertEquals('one', CSUtils.join(new Set<String>{'one'}, '|'));
+System.assertEquals('one,three,two', CSUtils.join(new Set<String>{'one', 'two', 'three'}, ','));
+
+// SObject version.
+System.assertEquals('Account1', CSUtils.join(new List<sObject>{new Account(Name='Account1')}, 'Name', '|'));
+System.assertEquals('Account1|Account2', CSUtils.join(new List<sObject>{new Account(Name='Account1'), new Account(Name='Account2')}, 'Name', '|'));
+</pre>
+
+    <h3>shuffle(String[] values) returns String[]</h3>
+    <h4>Shuffles a list of Strings into random order.</h4>
+    <pre>
+
+</pre>
+
+    <h3>quote(String value) returns String</h3>
+    <h4>Wraps a string in quote (") characters and escapes any existing quotes in the string.</h4>
+    <pre>
+    System.assertEquals('""', CSUtils.quote((String) null));
+System.assertEquals('""', CSUtils.quote(''));
+System.assertEquals('"John Doe"', CSUtils.quote('John Doe'));
+System.assertEquals('"This has ""quotes"" embedded."', CSUtils.quote('This has "quotes" embedded.'));
+</pre>
+
+    <h3>quote(String[] values) returns String[]</h3>
+    <h4>Quotes a list of values.</h4>
+    <pre>
+List<String> quotedValues = CSUtils.quote(new List<String>{'John Doe', 'Jane Doe'});
+System.assertNotEquals(null, quotedValues);
+System.assertEquals('"John Doe"', quotedValues.get(0));
+System.assertEquals('"Jane Doe"', quotedValues.get(1));
+System.assertEquals(null, CSUtils.quote((List<String>) null));
+</pre>
+
+    <h3>singleQuote(String value) returns String</h3>
+    <h4>Wraps a string in sinql quote (') characters and escapes any existing single quotes in the string.</h4>
+    <pre>
+System.assertEquals('\'\'', CSUtils.singleQuote((String) null));
+System.assertEquals('\'\'', CSUtils.singleQuote(''));
+System.assertEquals('\'John Doe\'', CSUtils.singleQuote('John Doe'));
+System.assertEquals('\'This has \\\'quotes\\\' embedded.\'', CSUtils.singleQuote('This has \'quotes\' embedded.'));
+</pre>
+
+    <h3>singleQuote(List<String> values) returns List<String></h3>
+    <h4>Single quotes a list of values.</h4>
+    <pre>
+List<String> quotedValues = CSUtils.singleQuote(new List<String>{'John Doe', 'Jane Doe'});
+System.assertNotEquals(null, quotedValues);
+System.assertEquals('\'John Doe\'', quotedValues.get(0));
+System.assertEquals('\'Jane Doe\'', quotedValues.get(1));
+System.assertEquals(null, CSUtils.quote((List<String>) null));
+</pre>
+
+    <h3>formatDate(Date d, String format) returns String</h3>
+    <h4>Format a Date with the given format.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.formatDate(null, null));
+    
+Date d1 = Date.newInstance(2009, 4, 6);
+System.assertEquals('2009-04-06', CSUtils.formatDate(d1, 'yyyy-MM-dd'));
+
+Date d2 = Date.newInstance(2009, 10, 22);
+System.assertEquals('2009/10/22', CSUtils.formatDate(d2, 'yyyy/MM/dd'));
+</pre>
+
+    <h3>formatDateTimeUTC(DateTime dt) returns String</h3>
+    <h4>Format a DateTime as UTC format (e.g., 2010-03-12T19:44:00Z).</h4>
+    <pre>
+System.assertEquals(null, CSUtils.formatDateTimeUTC(null));
+System.assertEquals('2010-04-06T00:00:00Z', CSUtils.formatDateTimeUTC(DateTime.newInstanceGmt(2010, 4, 6)));
+</pre>
+
+    <h3>convertDateTimeToDate(DateTime dt) returns Date</h3>
+    <h4>Convert a DateTime object to a Date object.</h4>
+    <pre>
+// Test positive scenario.
+DateTime dt = DateTime.newInstance(2009, 4, 6);
+Date d = CSUtils.convertDateTimeToDate(dt);
+
+System.assertEquals(2009, d.year());
+System.assertEquals(4, d.month());
+System.assertEquals(6, d.day());
+
+// Test negative scenario.
+dt = null;
+d = CSUtils.convertDateTimeToDate(dt);
+
+System.assertEquals(null, d);
+</pre>
+
+<h3>getRecordTypeId(String sObjectType, String recordType) returns String</h3>
+    <h4>Given an SObject name and Record Type name, return the Record Type's Id.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.getRecordTypeId('Account', 'Test'));
+</pre>
+
+<h3>getObjectMetadata(String objectName) returns Schema.DescribeSObjectResult</h3>
+    <h4>Get metadata for an SObject.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.getObjectMetadata(null));
+System.assert(CSUtils.getObjectMetadata('Account') != null);
+</pre>
+
+<h3>getFieldMetadata(String objectName, String fieldName) returns Schema.DescribeFieldResult</h3>
+    <h4>Get metadata for an SObject's field.</h4>
+    <pre>
+System.assert(CSUtils.getFieldMetadata('Account', 'Name') != null);
+</pre>
+
+<h3>getPicklistValues(String objectName, String fieldName, Boolean sortValues) returns String[]</h3>
+    <h4>Get a list of a field's picklist values.</h4>
+    <pre>
+System.assertNotEquals(null, CSUtils.getPicklistValues('Account', 'Industry', true));
+</pre>
+
+
+<h3>getPicklistDefaultValue(String objectName, String fieldName) returns String</h3>
+    <h4>Get a field's picklist default value.</h4>
+    <pre>
+CSUtils.getPicklistDefaultValue('Account', 'Industry');
+</pre>
+
+<h3>getPicklistAsSelectOptions(String objectName, String fieldName, Boolean sortValues) returns SelectOption[]</h3>
+    <h4>comment</h4>
+    <pre>
+System.assertNotEquals(null, CSUtils.getPicklistAsSelectOptions('Account', 'Industry', true));
+</pre>
+
+<h3>getTextFieldLength(String objectName, String fieldName) returns Integer</h3>
+    <h4>Get the field length for a text field.</h4>
+    <pre>
+System.assert(CSUtils.getTextFieldLength('Account', 'Name') != 0);
+</pre>
+
+<h3>getObjectNameFromId(String id) returns String</h3>
+    <h4>Given a Salesforce object id, return the name of the object that the id is for.</h4>
+    <pre>
+Account account = new Account();
+account.Name = 'Test';
+insert account;
+System.assertEquals('Account', CSUtils.getObjectNameFromId(account.Id));
+</pre>
+
+<h3>fifteenCharacterId(String originalId) returns String</h3>
+    <h4>Converts a Salesforce id to fifteen character variant.</h4>
+    <pre>
+System.assertEquals(null, CSUtils.fifteenCharacterId(null));
+System.assertEquals('01234', CSUtils.fifteenCharacterId('01234')); // 5 characters
+System.assertEquals('012345678901234', CSUtils.fifteenCharacterId('012345678901234')); // 15 characters
+System.assertEquals('012345678901234', CSUtils.fifteenCharacterId('012345678901234567')); // 18 characters
+</pre>
+
+<h3>fieldValuesDifferent(SOBject objectA, SObject objectB, Set<String> fieldNames) returns Boolean</h3>
+    <h4>Given two objects and a set of field names, determine if any of the fields' values are different.</h4>
+    <pre>
+// Test String field.
+Contact contactA = new Contact();
+contactA.FirstName = 'Test';
+
+Contact contactB = new Contact();
+contactB.FirstName = 'Test';
+
+System.assertEquals(false, CSUtils.fieldValuesDifferent(contactA, contactB, new Set<String>{'FirstName'}));
+
+contactB.FirstName = 'Test 2';
+
+System.assertEquals(true, CSUtils.fieldValuesDifferent(contactA, contactB, new Set<String>{'FirstName'}));
+
+// Test Boolean field.
+contactA = new Contact();
+contactA.DoNotCall = false;
+
+contactB = new Contact();
+contactB.DoNotCall = false;
+
+System.assertEquals(false, CSUtils.fieldValuesDifferent(contactA, contactB, new Set<String>{'DoNotCall'}));
+
+contactB.DoNotCall = true;
+
+System.assertEquals(true, CSUtils.fieldValuesDifferent(contactA, contactB, new Set<String>{'DoNotCall'}));
+</pre>
+
+<h3>sendEmail(List<String> recipients, String subject, String message) returns Void</h3>
+    <h4>Send an email.</h4>
+    <pre>
+CSUtils.sendEmail(new List<String>{'test@test.com'}, 'test', 'test message');
+</pre>
+
+<h3>dayOfWeek(Date d) returns String</h3>
+    <h4>Given a Date, returns day of week as a string ('Monday', 'Tuesday', etc)</h4>
+    <pre>
+system.assertEquals('Monday', CSUtils.dayOfWeek(date.parse('3/23/2015')) );
+system.assertEquals('Tuesday', CSUtils.dayOfWeek(date.parse('3/24/2015')) );
+system.assertEquals('Wednesday', CSUtils.dayOfWeek(date.parse('3/25/2015')) );
+system.assertEquals('Thursday', CSUtils.dayOfWeek(date.parse('3/26/2015')) );
+system.assertEquals('Friday', CSUtils.dayOfWeek(date.parse('3/27/2015')) );
+system.assertEquals('Saturday', CSUtils.dayOfWeek(date.parse('3/28/2015')) );
+system.assertEquals('Sunday', CSUtils.dayOfWeek(date.parse('3/29/2015')) );
+</pre>
+
+
+</article>
+                
+            </div>
+        </div>
+        <footer>
+            <div class="owner">
+                <p>
+                    <a href="https://github.com/CodeScience" class="avatar"><img src="https://avatars3.githubusercontent.com/u/5943746?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/CodeScience">CodeScience</a> maintains <a href="https://github.com/CodeScience/CSUtils">Csutils</a></p>
+            </div>
+            <div class="creds">
+                <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
+            </div>
+        </footer>
     </div>
-    <footer>
-      <div class="owner">
-      <p><a href="https://github.com/CodeScience" class="avatar"><img src="https://avatars3.githubusercontent.com/u/5943746?v=3&amp;s=60" width="48" height="48"></a> <a href="https://github.com/CodeScience">CodeScience</a> maintains <a href="https://github.com/CodeScience/CSUtils">Csutils</a></p>
-
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="https://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
-    </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/CodeScience/CSUtils/tarball/master" class="tar">tar</a><a href="https://github.com/CodeScience/CSUtils/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
-
-  
+    <div class="current-section">
+        <a href="#top">Scroll to top</a>
+        <a href="https://github.com/CodeScience/CSUtils/tarball/master" class="tar">tar</a><a href="https://github.com/CodeScience/CSUtils/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
+        <p class="name"></p>
+    </div>
 </body>
+
 </html>
