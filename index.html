@@ -45,7 +45,7 @@
 <h2>Static Methods</h2>
 
 <article class="markdown-body">
-    <h3>isNumeric(String value) returns Boolean</h3>
+    <h2>isNumeric(String value) returns Boolean</h2>
     <h4>Determine if a String object has a numeric value.</h4>
     <pre>
 System.assertEquals(false, CSUtils.isNumeric(null));
@@ -58,7 +58,7 @@ System.assertEquals(false, CSUtils.isNumeric('text'));
 </pre>
 
 <article class="markdown-body">
-    <h3>isValidId(String value) returns Boolean</h3>
+    <h2>isValidId(String value) returns Boolean</h2>
     <h4>Determine if a String is a valid Salesforce Id.</h4>
     <pre>
 System.assertEquals(true, CSUtils.isValidId(null));
@@ -73,7 +73,7 @@ System.assertEquals(true, CSUtils.isValidId(contact.Id));
 </pre>
 
 <article class="markdown-body">
-    <h3>isValidEmail(String email)  returns Boolean</h3>
+    <h2>isValidEmail(String email)  returns Boolean</h2>
     <h4>Determine if a String is a valid email address.</h4>
     <pre>
 System.assertEquals(true, CSUtils.isValidEmail(null));
@@ -86,7 +86,7 @@ System.assertEquals(false, CSUtils.isValidEmail('@test.com'));
 
 
 <article class="markdown-body">
-    <h3>leftPad(String value, String pad, Integer length) returns String</h3>
+    <h2>leftPad(String value, String pad, Integer length) returns String</h2>
     <h4>Left pad a String to the given length with the given pad character.</h4>
     <pre>
 System.assertEquals(null, CSUtils.leftPad(null, null, null));
@@ -96,7 +96,7 @@ System.assertEquals('12345', CSUtils.leftPad('12345', '0', 4));
 </pre>
 
 <article class="markdown-body">
-    <h3>rightPad(String value, String pad, Integer length) returns  String</h3>
+    <h2>rightPad(String value, String pad, Integer length) returns  String</h2>
     <h4>Right pad a String to the given length with the given pad character.</h4>
     <pre>
 System.assertEquals(null, CSUtils.rightPad(null, null, null));
@@ -106,7 +106,7 @@ System.assertEquals('12345', CSUtils.rightPad('12345', '0', 4));
 </pre>
 
 <article class="markdown-body">
-    <h3>toCharacterArray(String value) returns  String[]</h3>
+    <h2>toCharacterArray(String value) returns  String[]</h2>
     <h4>Convert a String to an array (List) of characters (1-letter Strings).</h4>
     <pre>
 List<String> characters = CSUtils.toCharacterArray('abc');
@@ -116,7 +116,7 @@ System.assertEquals('c', characters.get(2));
 </pre>
 
 <article class="markdown-body">
-    <h3>nullSafeEquals returns Boolean</h3>
+    <h2>nullSafeEquals returns Boolean</h2>
     <h4>Perform a null-safe equals comparison on two strings.</h4>
     <pre>
 System.assertEquals(true, CSUtils.nullSafeEquals(null, null));
@@ -127,7 +127,7 @@ System.assertEquals(false, CSUtils.nullSafeEquals('vala', 'valb'));
 </pre>
 
 <article class="markdown-body">
-    <h3>join(sObject[] objects, String fieldName, String separator) returns String</h3>
+    <h2>join(sObject[] objects, String fieldName, String separator) returns String</h2>
     <h4>Join a list of field values from a list of SObjects into one string separated by the specified separator.</h4>
     <pre>
 // Set version.
@@ -139,13 +139,13 @@ System.assertEquals('Account1', CSUtils.join(new List<sObject>{new Account(Name=
 System.assertEquals('Account1|Account2', CSUtils.join(new List<sObject>{new Account(Name='Account1'), new Account(Name='Account2')}, 'Name', '|'));
 </pre>
 
-    <h3>shuffle(String[] values) returns String[]</h3>
+    <h2>shuffle(String[] values) returns String[]</h2>
     <h4>Shuffles a list of Strings into random order.</h4>
     <pre>
 
 </pre>
 
-    <h3>quote(String value) returns String</h3>
+    <h2>quote(String value) returns String</h2>
     <h4>Wraps a string in quote (") characters and escapes any existing quotes in the string.</h4>
     <pre>
     System.assertEquals('""', CSUtils.quote((String) null));
@@ -154,7 +154,7 @@ System.assertEquals('"John Doe"', CSUtils.quote('John Doe'));
 System.assertEquals('"This has ""quotes"" embedded."', CSUtils.quote('This has "quotes" embedded.'));
 </pre>
 
-    <h3>quote(String[] values) returns String[]</h3>
+    <h2>quote(String[] values) returns String[]</h2>
     <h4>Quotes a list of values.</h4>
     <pre>
 List<String> quotedValues = CSUtils.quote(new List<String>{'John Doe', 'Jane Doe'});
@@ -164,7 +164,7 @@ System.assertEquals('"Jane Doe"', quotedValues.get(1));
 System.assertEquals(null, CSUtils.quote((List<String>) null));
 </pre>
 
-    <h3>singleQuote(String value) returns String</h3>
+    <h2>singleQuote(String value) returns String</h2>
     <h4>Wraps a string in sinql quote (') characters and escapes any existing single quotes in the string.</h4>
     <pre>
 System.assertEquals('\'\'', CSUtils.singleQuote((String) null));
@@ -173,7 +173,7 @@ System.assertEquals('\'John Doe\'', CSUtils.singleQuote('John Doe'));
 System.assertEquals('\'This has \\\'quotes\\\' embedded.\'', CSUtils.singleQuote('This has \'quotes\' embedded.'));
 </pre>
 
-    <h3>singleQuote(List<String> values) returns List<String></h3>
+    <h2>singleQuote(List<String> values) returns List<String></h2>
     <h4>Single quotes a list of values.</h4>
     <pre>
 List<String> quotedValues = CSUtils.singleQuote(new List<String>{'John Doe', 'Jane Doe'});
@@ -183,7 +183,7 @@ System.assertEquals('\'Jane Doe\'', quotedValues.get(1));
 System.assertEquals(null, CSUtils.quote((List<String>) null));
 </pre>
 
-    <h3>formatDate(Date d, String format) returns String</h3>
+    <h2>formatDate(Date d, String format) returns String</h2>
     <h4>Format a Date with the given format.</h4>
     <pre>
 System.assertEquals(null, CSUtils.formatDate(null, null));
@@ -195,14 +195,14 @@ Date d2 = Date.newInstance(2009, 10, 22);
 System.assertEquals('2009/10/22', CSUtils.formatDate(d2, 'yyyy/MM/dd'));
 </pre>
 
-    <h3>formatDateTimeUTC(DateTime dt) returns String</h3>
+    <h2>formatDateTimeUTC(DateTime dt) returns String</h2>
     <h4>Format a DateTime as UTC format (e.g., 2010-03-12T19:44:00Z).</h4>
     <pre>
 System.assertEquals(null, CSUtils.formatDateTimeUTC(null));
 System.assertEquals('2010-04-06T00:00:00Z', CSUtils.formatDateTimeUTC(DateTime.newInstanceGmt(2010, 4, 6)));
 </pre>
 
-    <h3>convertDateTimeToDate(DateTime dt) returns Date</h3>
+    <h2>convertDateTimeToDate(DateTime dt) returns Date</h2>
     <h4>Convert a DateTime object to a Date object.</h4>
     <pre>
 // Test positive scenario.
@@ -220,51 +220,51 @@ d = CSUtils.convertDateTimeToDate(dt);
 System.assertEquals(null, d);
 </pre>
 
-<h3>getRecordTypeId(String sObjectType, String recordType) returns String</h3>
+<h2>getRecordTypeId(String sObjectType, String recordType) returns String</h2>
     <h4>Given an SObject name and Record Type name, return the Record Type's Id.</h4>
     <pre>
 System.assertEquals(null, CSUtils.getRecordTypeId('Account', 'Test'));
 </pre>
 
-<h3>getObjectMetadata(String objectName) returns Schema.DescribeSObjectResult</h3>
+<h2>getObjectMetadata(String objectName) returns Schema.DescribeSObjectResult</h2>
     <h4>Get metadata for an SObject.</h4>
     <pre>
 System.assertEquals(null, CSUtils.getObjectMetadata(null));
 System.assert(CSUtils.getObjectMetadata('Account') != null);
 </pre>
 
-<h3>getFieldMetadata(String objectName, String fieldName) returns Schema.DescribeFieldResult</h3>
+<h2>getFieldMetadata(String objectName, String fieldName) returns Schema.DescribeFieldResult</h2>
     <h4>Get metadata for an SObject's field.</h4>
     <pre>
 System.assert(CSUtils.getFieldMetadata('Account', 'Name') != null);
 </pre>
 
-<h3>getPicklistValues(String objectName, String fieldName, Boolean sortValues) returns String[]</h3>
+<h2>getPicklistValues(String objectName, String fieldName, Boolean sortValues) returns String[]</h2>
     <h4>Get a list of a field's picklist values.</h4>
     <pre>
 System.assertNotEquals(null, CSUtils.getPicklistValues('Account', 'Industry', true));
 </pre>
 
 
-<h3>getPicklistDefaultValue(String objectName, String fieldName) returns String</h3>
+<h2>getPicklistDefaultValue(String objectName, String fieldName) returns String</h2>
     <h4>Get a field's picklist default value.</h4>
     <pre>
 CSUtils.getPicklistDefaultValue('Account', 'Industry');
 </pre>
 
-<h3>getPicklistAsSelectOptions(String objectName, String fieldName, Boolean sortValues) returns SelectOption[]</h3>
+<h2>getPicklistAsSelectOptions(String objectName, String fieldName, Boolean sortValues) returns SelectOption[]</h2>
     <h4>comment</h4>
     <pre>
 System.assertNotEquals(null, CSUtils.getPicklistAsSelectOptions('Account', 'Industry', true));
 </pre>
 
-<h3>getTextFieldLength(String objectName, String fieldName) returns Integer</h3>
+<h2>getTextFieldLength(String objectName, String fieldName) returns Integer</h2>
     <h4>Get the field length for a text field.</h4>
     <pre>
 System.assert(CSUtils.getTextFieldLength('Account', 'Name') != 0);
 </pre>
 
-<h3>getObjectNameFromId(String id) returns String</h3>
+<h2>getObjectNameFromId(String id) returns String</h2>
     <h4>Given a Salesforce object id, return the name of the object that the id is for.</h4>
     <pre>
 Account account = new Account();
@@ -273,7 +273,7 @@ insert account;
 System.assertEquals('Account', CSUtils.getObjectNameFromId(account.Id));
 </pre>
 
-<h3>fifteenCharacterId(String originalId) returns String</h3>
+<h2>fifteenCharacterId(String originalId) returns String</h2>
     <h4>Converts a Salesforce id to fifteen character variant.</h4>
     <pre>
 System.assertEquals(null, CSUtils.fifteenCharacterId(null));
@@ -282,7 +282,7 @@ System.assertEquals('012345678901234', CSUtils.fifteenCharacterId('0123456789012
 System.assertEquals('012345678901234', CSUtils.fifteenCharacterId('012345678901234567')); // 18 characters
 </pre>
 
-<h3>fieldValuesDifferent(SOBject objectA, SObject objectB, Set<String> fieldNames) returns Boolean</h3>
+<h2>fieldValuesDifferent(SOBject objectA, SObject objectB, Set<String> fieldNames) returns Boolean</h2>
     <h4>Given two objects and a set of field names, determine if any of the fields' values are different.</h4>
     <pre>
 // Test String field.
@@ -312,13 +312,13 @@ contactB.DoNotCall = true;
 System.assertEquals(true, CSUtils.fieldValuesDifferent(contactA, contactB, new Set<String>{'DoNotCall'}));
 </pre>
 
-<h3>sendEmail(List<String> recipients, String subject, String message) returns Void</h3>
+<h2>sendEmail(List<String> recipients, String subject, String message) returns Void</h2>
     <h4>Send an email.</h4>
     <pre>
 CSUtils.sendEmail(new List<String>{'test@test.com'}, 'test', 'test message');
 </pre>
 
-<h3>dayOfWeek(Date d) returns String</h3>
+<h2>dayOfWeek(Date d) returns String</h2>
     <h4>Given a Date, returns day of week as a string ('Monday', 'Tuesday', etc)</h4>
     <pre>
 system.assertEquals('Monday', CSUtils.dayOfWeek(date.parse('3/23/2015')) );
